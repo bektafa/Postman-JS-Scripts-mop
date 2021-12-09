@@ -1,0 +1,1343 @@
+{
+	"info": {
+		"_postman_id": "ef7d7a79-9b3c-4257-9aec-eb78ddbc206f",
+		"name": "Birthdayboy integration test",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "{{URL}}/people/searchfilter?limit=15&offset=0",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Body matches string\", function () {",
+							"    pm.expect(pm.response.text()).to.include(\"Merisa\");",
+							"});",
+							"",
+							"console.log(response[\"data\"]);",
+							"",
+							"const responseID = response.data[0].id;",
+							"",
+							"console.log(responseID);",
+							"pm.test(\"ID should be OK\", () => {",
+							"pm.expect(responseID).to.eql(62);",
+							"pm.expect(responseID).to.be.above(60);",
+							"});",
+							"",
+							"const responseName = response.data[0].name;",
+							"",
+							"console.log(responseName);",
+							"pm.test(\"Name should be OK\", () => {",
+							"pm.expect(responseName).to.eql(\"Rešad\");",
+							"});",
+							"",
+							"const typePartner = response.data.filter((user) => user.type === \"partner\");",
+							"",
+							"console.log(typePartner);",
+							"",
+							"const user = typePartner[2];",
+							"",
+							"pm.test(\"Users found\", () => {",
+							"pm.expect(user.type).to.eql(\"partner\");",
+							"})",
+							"",
+							"const responseMessage = response.message;",
+							"",
+							"console.log(responseMessage);",
+							"",
+							"pm.test(\"Response message is success\", () => {",
+							"pm.expect(responseMessage).to.eql(\"success\");",
+							"})",
+							"",
+							"const responseNam = response.data[2].name;",
+							"",
+							"console.log(responseNam);",
+							"",
+							"pm.test(\"Name should be Mirna\", () => {",
+							"pm.expect(responseNam).to.eql(\"Mirnra\");",
+							"});",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "bb.mop.ba"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"95\", \"Chromium\";v=\"95\", \";Not A Brand\";v=\"99\""
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "origin",
+						"value": "https://birthdaybot.mop.ba"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "referer",
+						"value": "https://birthdaybot.mop.ba/"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "user=109578534916975092423; login-session=eyJwYXNzcG9ydCI6eyJ1c2VyIjp7InByb3ZpZGVyIjoiZ29vZ2xlIiwic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwiaWQiOiIxMDk1Nzg1MzQ5MTY5NzUwOTI0MjMiLCJkaXNwbGF5TmFtZSI6IkZhcmlzIEJla3RhcyIsIm5hbWUiOnsiZ2l2ZW5OYW1lIjoiRmFyaXMgIiwiZmFtaWx5TmFtZSI6IkJla3RhcyJ9LCJnaXZlbl9uYW1lIjoiRmFyaXMgIiwiZmFtaWx5X25hbWUiOiJCZWt0YXMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwidmVyaWZpZWQiOnRydWUsImxhbmd1YWdlIjoiZW4iLCJlbWFpbCI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwiZW1haWxzIjpbeyJ2YWx1ZSI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwidHlwZSI6ImFjY291bnQifV0sInBob3RvcyI6W3sidmFsdWUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsInR5cGUiOiJkZWZhdWx0In1dLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY049czk2LWMiLCJfcmF3Ijoie1xuICBcInN1YlwiOiBcIjEwOTU3ODUzNDkxNjk3NTA5MjQyM1wiLFxuICBcIm5hbWVcIjogXCJGYXJpcyBCZWt0YXNcIixcbiAgXCJnaXZlbl9uYW1lXCI6IFwiRmFyaXMgXCIsXG4gIFwiZmFtaWx5X25hbWVcIjogXCJCZWt0YXNcIixcbiAgXCJwaWN0dXJlXCI6IFwiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY05cXHUwMDNkczk2LWNcIixcbiAgXCJlbWFpbFwiOiBcImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tXCIsXG4gIFwiZW1haWxfdmVyaWZpZWRcIjogdHJ1ZSxcbiAgXCJsb2NhbGVcIjogXCJlblwiLFxuICBcImhkXCI6IFwibWluaXN0cnlvZnByb2dyYW1taW5nLmNvbVwiXG59IiwiX2pzb24iOnsic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwibmFtZSI6IkZhcmlzIEJla3RhcyIsImdpdmVuX25hbWUiOiJGYXJpcyAiLCJmYW1pbHlfbmFtZSI6IkJla3RhcyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsImVtYWlsIjoiZmFyaXMuYmVrdGFzQG1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibG9jYWxlIjoiZW4iLCJoZCI6Im1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJkb21haW4iOiJtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIn19fX0=; login-session.sig=W_Qc4Waz2MsDK0INF1mn-cbFvKY"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"searchString\":\"\",\"filter\":{}}"
+				},
+				"url": {
+					"raw": "{{URL}}/people/searchfilter?limit=15&offset=0/",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"people",
+						"searchfilter"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "15"
+						},
+						{
+							"key": "offset",
+							"value": "0/"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{URL}}/user",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const notif = response.data.filter((notif) => notif.partner_notif === 1);",
+							"",
+							"console.log(notif);",
+							"",
+							"const responseNotif = response.data[1].partner_notif;",
+							"",
+							"console.log(responseNotif);",
+							"",
+							"pm.test(\"Partner notif should be 1\", () => {",
+							"pm.expect(responseNotif).to.eql(1);",
+							"});",
+							"",
+							"const responseEmail = response.data[1].email;",
+							"console.log(responseEmail);",
+							"",
+							"pm.test(\"Email should contain ministryofprogramming\", () => {",
+							"pm.expect(responseEmail).to.include(\"ministryofprogramming\");",
+							"});",
+							"",
+							"const responseName = response.data[1].name;",
+							"console.log(responseName);",
+							"pm.test(\"Name should contain Faris\", () => {",
+							"pm.expect(responseName).to.contain(\"Faris\");",
+							"});",
+							"",
+							"const responseSuccess = response.success;",
+							"",
+							"console.log(responseSuccess);",
+							"",
+							"pm.test(\"Success should be True\", () => {",
+							"pm.expect(responseSuccess).to.be.eql(false);",
+							"});",
+							"",
+							"",
+							"   responseJson = JSON.parse(responseBody);",
+							"  var a=[];",
+							"var list = (responseJson.data).length;",
+							"console.log(list);",
+							"   for (var i = 0; i < list; i++) ",
+							"    {",
+							"    var counter = responseJson.data[i];",
+							"    ID=counter.email",
+							"",
+							"    a.push(ID)",
+							"    }",
+							"    a= JSON.stringify(a)",
+							"    postman.setEnvironmentVariable(\"ID\", a);",
+							"",
+							"    pm.test(\"Email should contain ministryofprogramming\", () => {",
+							"pm.expect(a).to.include(\"ministryofprogramming\");",
+							"console.log(a);",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"responseJson = JSON.parse(responseBody);",
+							"  var b=[];",
+							"var list = (responseJson.data).length;",
+							"console.log(list);",
+							"   for (var i = 0; i < list; i++) ",
+							"    {",
+							"    var counter = responseJson.data[i];",
+							"    ID=counter.partner_notif",
+							"",
+							"    b.push(ID)",
+							"    }",
+							"    b= JSON.stringify(b)",
+							"    postman.setEnvironmentVariable(\"ID\", b);",
+							"",
+							"    pm.test(\"Users that are partners\", () => {",
+							"pm.expect(b).to.contain(1);",
+							"console.log(b);",
+							"});",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authority",
+						"value": "bb.mop.ba"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"95\", \"Chromium\";v=\"95\", \";Not A Brand\";v=\"99\""
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "origin",
+						"value": "https://birthdaybot.mop.ba"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "referer",
+						"value": "https://birthdaybot.mop.ba/"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "user=109578534916975092423; login-session=eyJwYXNzcG9ydCI6eyJ1c2VyIjp7InByb3ZpZGVyIjoiZ29vZ2xlIiwic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwiaWQiOiIxMDk1Nzg1MzQ5MTY5NzUwOTI0MjMiLCJkaXNwbGF5TmFtZSI6IkZhcmlzIEJla3RhcyIsIm5hbWUiOnsiZ2l2ZW5OYW1lIjoiRmFyaXMgIiwiZmFtaWx5TmFtZSI6IkJla3RhcyJ9LCJnaXZlbl9uYW1lIjoiRmFyaXMgIiwiZmFtaWx5X25hbWUiOiJCZWt0YXMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwidmVyaWZpZWQiOnRydWUsImxhbmd1YWdlIjoiZW4iLCJlbWFpbCI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwiZW1haWxzIjpbeyJ2YWx1ZSI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwidHlwZSI6ImFjY291bnQifV0sInBob3RvcyI6W3sidmFsdWUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsInR5cGUiOiJkZWZhdWx0In1dLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY049czk2LWMiLCJfcmF3Ijoie1xuICBcInN1YlwiOiBcIjEwOTU3ODUzNDkxNjk3NTA5MjQyM1wiLFxuICBcIm5hbWVcIjogXCJGYXJpcyBCZWt0YXNcIixcbiAgXCJnaXZlbl9uYW1lXCI6IFwiRmFyaXMgXCIsXG4gIFwiZmFtaWx5X25hbWVcIjogXCJCZWt0YXNcIixcbiAgXCJwaWN0dXJlXCI6IFwiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY05cXHUwMDNkczk2LWNcIixcbiAgXCJlbWFpbFwiOiBcImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tXCIsXG4gIFwiZW1haWxfdmVyaWZpZWRcIjogdHJ1ZSxcbiAgXCJsb2NhbGVcIjogXCJlblwiLFxuICBcImhkXCI6IFwibWluaXN0cnlvZnByb2dyYW1taW5nLmNvbVwiXG59IiwiX2pzb24iOnsic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwibmFtZSI6IkZhcmlzIEJla3RhcyIsImdpdmVuX25hbWUiOiJGYXJpcyAiLCJmYW1pbHlfbmFtZSI6IkJla3RhcyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsImVtYWlsIjoiZmFyaXMuYmVrdGFzQG1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibG9jYWxlIjoiZW4iLCJoZCI6Im1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJkb21haW4iOiJtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIn19fX0=; login-session.sig=W_Qc4Waz2MsDK0INF1mn-cbFvKY"
+					},
+					{
+						"key": "if-none-match",
+						"value": "W/\"21d-kWZJ87c7A4Ra4XX9p1C2Rt8GKoc\""
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/user",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{URL}}/reminder",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"responseJson = JSON.parse(responseBody);",
+							"  var c=[];",
+							"var list = (responseJson.data).length;",
+							"console.log(list);",
+							"   for (var i = 0; i < list; i++) ",
+							"    {",
+							"    var counter = responseJson.data[i];",
+							"    ID=counter.user_email",
+							"",
+							"    c.push(ID)",
+							"    }",
+							"    c= JSON.stringify(c)",
+							"    postman.setEnvironmentVariable(\"ID\", c);",
+							"",
+							"    pm.test(\"Email is faris.bektas@ministryofprogramming.com\", () => {",
+							"pm.expect(c).to.contain(\"faris.bektas@ministryofprogramming.com\");",
+							"console.log(c);",
+							"});",
+							"",
+							"const responseTim = response.data[0].time;",
+							"",
+							"console.log(responseTim);",
+							"",
+							"pm.test(\"Time should be OK\", () => {",
+							"pm.expect(responseTim).to.be.eql(\"09:00:01\");",
+							"});",
+							"",
+							"const responseDays = response.data[1].days_before;",
+							"console.log(responseDays);",
+							"pm.test(\"Days before should be less than 10 \", function () {",
+							"if(responseDays.length < 10) {",
+							"console.log(responseDays)",
+							"}",
+							"});",
+							"",
+							"",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authority",
+						"value": "bb.mop.ba"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"95\", \"Chromium\";v=\"95\", \";Not A Brand\";v=\"99\""
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "origin",
+						"value": "https://birthdaybot.mop.ba"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "referer",
+						"value": "https://birthdaybot.mop.ba/"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "user=109578534916975092423; login-session=eyJwYXNzcG9ydCI6eyJ1c2VyIjp7InByb3ZpZGVyIjoiZ29vZ2xlIiwic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwiaWQiOiIxMDk1Nzg1MzQ5MTY5NzUwOTI0MjMiLCJkaXNwbGF5TmFtZSI6IkZhcmlzIEJla3RhcyIsIm5hbWUiOnsiZ2l2ZW5OYW1lIjoiRmFyaXMgIiwiZmFtaWx5TmFtZSI6IkJla3RhcyJ9LCJnaXZlbl9uYW1lIjoiRmFyaXMgIiwiZmFtaWx5X25hbWUiOiJCZWt0YXMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwidmVyaWZpZWQiOnRydWUsImxhbmd1YWdlIjoiZW4iLCJlbWFpbCI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwiZW1haWxzIjpbeyJ2YWx1ZSI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwidHlwZSI6ImFjY291bnQifV0sInBob3RvcyI6W3sidmFsdWUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsInR5cGUiOiJkZWZhdWx0In1dLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY049czk2LWMiLCJfcmF3Ijoie1xuICBcInN1YlwiOiBcIjEwOTU3ODUzNDkxNjk3NTA5MjQyM1wiLFxuICBcIm5hbWVcIjogXCJGYXJpcyBCZWt0YXNcIixcbiAgXCJnaXZlbl9uYW1lXCI6IFwiRmFyaXMgXCIsXG4gIFwiZmFtaWx5X25hbWVcIjogXCJCZWt0YXNcIixcbiAgXCJwaWN0dXJlXCI6IFwiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY05cXHUwMDNkczk2LWNcIixcbiAgXCJlbWFpbFwiOiBcImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tXCIsXG4gIFwiZW1haWxfdmVyaWZpZWRcIjogdHJ1ZSxcbiAgXCJsb2NhbGVcIjogXCJlblwiLFxuICBcImhkXCI6IFwibWluaXN0cnlvZnByb2dyYW1taW5nLmNvbVwiXG59IiwiX2pzb24iOnsic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwibmFtZSI6IkZhcmlzIEJla3RhcyIsImdpdmVuX25hbWUiOiJGYXJpcyAiLCJmYW1pbHlfbmFtZSI6IkJla3RhcyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsImVtYWlsIjoiZmFyaXMuYmVrdGFzQG1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibG9jYWxlIjoiZW4iLCJoZCI6Im1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJkb21haW4iOiJtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIn19fX0=; login-session.sig=W_Qc4Waz2MsDK0INF1mn-cbFvKY"
+					},
+					{
+						"key": "if-none-match",
+						"value": "W/\"109-4hc10c+O2U/eCMxqsNY/YDhMKfI\""
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/reminder",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"reminder"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{URL}}/card?type=text",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"let date = Date.now();",
+							"let content = \"test\" + date + \"[user]\";",
+							"pm.environment.set('usercontent', content);"
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Created birthday card\", () => {",
+							"    pm.response.to.have.status(200);",
+							"})",
+							"",
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Message should be OK\", () => {",
+							"    pm.expect(response.message).to.contain(\"success\");",
+							"})",
+							"",
+							"pm.test(\"Response time is less than limit\", function() {",
+							"var limit = 200;",
+							"pm.expect(pm.response.responseTime, \"Response time was longer than \" + limit + \" ms.\").to.be.below(limit);",
+							"console.log(\"Response Time: \" + pm.response.responseTime + \" ms\" + \" / Response Date: \" + pm.response.headers.get(\"Date\"));",
+							"});",
+							"",
+							"pm.environment.set(\"count\", 10);",
+							"",
+							"var currentCount = pm.environment.get(\"count\")",
+							"if (currentCount > 0){",
+							" currentCount = currentCount -1 ;",
+							" pm.environment.set(\"count\", currentCount);",
+							" postman.setNextRequest(\"{{URL}}/card?type=text\");",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "bb.mop.ba"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"95\", \"Chromium\";v=\"95\", \";Not A Brand\";v=\"99\""
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "origin",
+						"value": "https://birthdaybot.mop.ba"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "referer",
+						"value": "https://birthdaybot.mop.ba/"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "user=109578534916975092423; login-session=eyJwYXNzcG9ydCI6eyJ1c2VyIjp7InByb3ZpZGVyIjoiZ29vZ2xlIiwic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwiaWQiOiIxMDk1Nzg1MzQ5MTY5NzUwOTI0MjMiLCJkaXNwbGF5TmFtZSI6IkZhcmlzIEJla3RhcyIsIm5hbWUiOnsiZ2l2ZW5OYW1lIjoiRmFyaXMgIiwiZmFtaWx5TmFtZSI6IkJla3RhcyJ9LCJnaXZlbl9uYW1lIjoiRmFyaXMgIiwiZmFtaWx5X25hbWUiOiJCZWt0YXMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwidmVyaWZpZWQiOnRydWUsImxhbmd1YWdlIjoiZW4iLCJlbWFpbCI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwiZW1haWxzIjpbeyJ2YWx1ZSI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwidHlwZSI6ImFjY291bnQifV0sInBob3RvcyI6W3sidmFsdWUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsInR5cGUiOiJkZWZhdWx0In1dLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY049czk2LWMiLCJfcmF3Ijoie1xuICBcInN1YlwiOiBcIjEwOTU3ODUzNDkxNjk3NTA5MjQyM1wiLFxuICBcIm5hbWVcIjogXCJGYXJpcyBCZWt0YXNcIixcbiAgXCJnaXZlbl9uYW1lXCI6IFwiRmFyaXMgXCIsXG4gIFwiZmFtaWx5X25hbWVcIjogXCJCZWt0YXNcIixcbiAgXCJwaWN0dXJlXCI6IFwiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY05cXHUwMDNkczk2LWNcIixcbiAgXCJlbWFpbFwiOiBcImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tXCIsXG4gIFwiZW1haWxfdmVyaWZpZWRcIjogdHJ1ZSxcbiAgXCJsb2NhbGVcIjogXCJlblwiLFxuICBcImhkXCI6IFwibWluaXN0cnlvZnByb2dyYW1taW5nLmNvbVwiXG59IiwiX2pzb24iOnsic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwibmFtZSI6IkZhcmlzIEJla3RhcyIsImdpdmVuX25hbWUiOiJGYXJpcyAiLCJmYW1pbHlfbmFtZSI6IkJla3RhcyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsImVtYWlsIjoiZmFyaXMuYmVrdGFzQG1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibG9jYWxlIjoiZW4iLCJoZCI6Im1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJkb21haW4iOiJtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIn19fX0=; login-session.sig=W_Qc4Waz2MsDK0INF1mn-cbFvKY"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"content\":\"{{usercontent}}\"}"
+				},
+				"url": {
+					"raw": "{{URL}}/card?type=text",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"card"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "text"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{URL}}/card?type=text",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authority",
+						"value": "bb.mop.ba"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"95\", \"Chromium\";v=\"95\", \";Not A Brand\";v=\"99\""
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "origin",
+						"value": "https://birthdaybot.mop.ba"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "referer",
+						"value": "https://birthdaybot.mop.ba/"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "user=109578534916975092423; login-session=eyJwYXNzcG9ydCI6eyJ1c2VyIjp7InByb3ZpZGVyIjoiZ29vZ2xlIiwic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwiaWQiOiIxMDk1Nzg1MzQ5MTY5NzUwOTI0MjMiLCJkaXNwbGF5TmFtZSI6IkZhcmlzIEJla3RhcyIsIm5hbWUiOnsiZ2l2ZW5OYW1lIjoiRmFyaXMgIiwiZmFtaWx5TmFtZSI6IkJla3RhcyJ9LCJnaXZlbl9uYW1lIjoiRmFyaXMgIiwiZmFtaWx5X25hbWUiOiJCZWt0YXMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwidmVyaWZpZWQiOnRydWUsImxhbmd1YWdlIjoiZW4iLCJlbWFpbCI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwiZW1haWxzIjpbeyJ2YWx1ZSI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwidHlwZSI6ImFjY291bnQifV0sInBob3RvcyI6W3sidmFsdWUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsInR5cGUiOiJkZWZhdWx0In1dLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY049czk2LWMiLCJfcmF3Ijoie1xuICBcInN1YlwiOiBcIjEwOTU3ODUzNDkxNjk3NTA5MjQyM1wiLFxuICBcIm5hbWVcIjogXCJGYXJpcyBCZWt0YXNcIixcbiAgXCJnaXZlbl9uYW1lXCI6IFwiRmFyaXMgXCIsXG4gIFwiZmFtaWx5X25hbWVcIjogXCJCZWt0YXNcIixcbiAgXCJwaWN0dXJlXCI6IFwiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY05cXHUwMDNkczk2LWNcIixcbiAgXCJlbWFpbFwiOiBcImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tXCIsXG4gIFwiZW1haWxfdmVyaWZpZWRcIjogdHJ1ZSxcbiAgXCJsb2NhbGVcIjogXCJlblwiLFxuICBcImhkXCI6IFwibWluaXN0cnlvZnByb2dyYW1taW5nLmNvbVwiXG59IiwiX2pzb24iOnsic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwibmFtZSI6IkZhcmlzIEJla3RhcyIsImdpdmVuX25hbWUiOiJGYXJpcyAiLCJmYW1pbHlfbmFtZSI6IkJla3RhcyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsImVtYWlsIjoiZmFyaXMuYmVrdGFzQG1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibG9jYWxlIjoiZW4iLCJoZCI6Im1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJkb21haW4iOiJtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIn19fX0=; login-session.sig=W_Qc4Waz2MsDK0INF1mn-cbFvKY"
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/card?type=text",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"card"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "text"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{URL}}/user/logged",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"console.log(response);",
+							"",
+							"const responseData = response.data.email;",
+							"",
+							"pm.test(\"First name should be Faris\",  () => {",
+							"    pm.expect(responseData).to.eql(\"Faris\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "authority",
+						"value": "bb.mop.ba"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"95\", \"Chromium\";v=\"95\", \";Not A Brand\";v=\"99\""
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "origin",
+						"value": "https://birthdaybot.mop.ba"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "referer",
+						"value": "https://birthdaybot.mop.ba/"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "user=109578534916975092423; login-session=eyJwYXNzcG9ydCI6eyJ1c2VyIjp7InByb3ZpZGVyIjoiZ29vZ2xlIiwic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwiaWQiOiIxMDk1Nzg1MzQ5MTY5NzUwOTI0MjMiLCJkaXNwbGF5TmFtZSI6IkZhcmlzIEJla3RhcyIsIm5hbWUiOnsiZ2l2ZW5OYW1lIjoiRmFyaXMgIiwiZmFtaWx5TmFtZSI6IkJla3RhcyJ9LCJnaXZlbl9uYW1lIjoiRmFyaXMgIiwiZmFtaWx5X25hbWUiOiJCZWt0YXMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwidmVyaWZpZWQiOnRydWUsImxhbmd1YWdlIjoiZW4iLCJlbWFpbCI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwiZW1haWxzIjpbeyJ2YWx1ZSI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwidHlwZSI6ImFjY291bnQifV0sInBob3RvcyI6W3sidmFsdWUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsInR5cGUiOiJkZWZhdWx0In1dLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY049czk2LWMiLCJfcmF3Ijoie1xuICBcInN1YlwiOiBcIjEwOTU3ODUzNDkxNjk3NTA5MjQyM1wiLFxuICBcIm5hbWVcIjogXCJGYXJpcyBCZWt0YXNcIixcbiAgXCJnaXZlbl9uYW1lXCI6IFwiRmFyaXMgXCIsXG4gIFwiZmFtaWx5X25hbWVcIjogXCJCZWt0YXNcIixcbiAgXCJwaWN0dXJlXCI6IFwiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY05cXHUwMDNkczk2LWNcIixcbiAgXCJlbWFpbFwiOiBcImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tXCIsXG4gIFwiZW1haWxfdmVyaWZpZWRcIjogdHJ1ZSxcbiAgXCJsb2NhbGVcIjogXCJlblwiLFxuICBcImhkXCI6IFwibWluaXN0cnlvZnByb2dyYW1taW5nLmNvbVwiXG59IiwiX2pzb24iOnsic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwibmFtZSI6IkZhcmlzIEJla3RhcyIsImdpdmVuX25hbWUiOiJGYXJpcyAiLCJmYW1pbHlfbmFtZSI6IkJla3RhcyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsImVtYWlsIjoiZmFyaXMuYmVrdGFzQG1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibG9jYWxlIjoiZW4iLCJoZCI6Im1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJkb21haW4iOiJtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIn19fX0=; login-session.sig=W_Qc4Waz2MsDK0INF1mn-cbFvKY"
+					},
+					{
+						"key": "if-none-match",
+						"value": "W/\"80-lJpl4SevagvpDx8CGkJtPCHA4ws\""
+					}
+				],
+				"url": {
+					"raw": "{{URL}}/user/logged",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"user",
+						"logged"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{URL}}/notion/sync",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"console.log(response);",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Success should be true\", () => {",
+							"    pm.expect(response.success).to.be.eql(true);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "bb.mop.ba"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"95\", \"Chromium\";v=\"95\", \";Not A Brand\";v=\"99\""
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "origin",
+						"value": "https://birthdaybot.mop.ba"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "referer",
+						"value": "https://birthdaybot.mop.ba/"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "user=109578534916975092423; login-session=eyJwYXNzcG9ydCI6eyJ1c2VyIjp7InByb3ZpZGVyIjoiZ29vZ2xlIiwic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwiaWQiOiIxMDk1Nzg1MzQ5MTY5NzUwOTI0MjMiLCJkaXNwbGF5TmFtZSI6IkZhcmlzIEJla3RhcyIsIm5hbWUiOnsiZ2l2ZW5OYW1lIjoiRmFyaXMgIiwiZmFtaWx5TmFtZSI6IkJla3RhcyJ9LCJnaXZlbl9uYW1lIjoiRmFyaXMgIiwiZmFtaWx5X25hbWUiOiJCZWt0YXMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwidmVyaWZpZWQiOnRydWUsImxhbmd1YWdlIjoiZW4iLCJlbWFpbCI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwiZW1haWxzIjpbeyJ2YWx1ZSI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwidHlwZSI6ImFjY291bnQifV0sInBob3RvcyI6W3sidmFsdWUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsInR5cGUiOiJkZWZhdWx0In1dLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY049czk2LWMiLCJfcmF3Ijoie1xuICBcInN1YlwiOiBcIjEwOTU3ODUzNDkxNjk3NTA5MjQyM1wiLFxuICBcIm5hbWVcIjogXCJGYXJpcyBCZWt0YXNcIixcbiAgXCJnaXZlbl9uYW1lXCI6IFwiRmFyaXMgXCIsXG4gIFwiZmFtaWx5X25hbWVcIjogXCJCZWt0YXNcIixcbiAgXCJwaWN0dXJlXCI6IFwiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY05cXHUwMDNkczk2LWNcIixcbiAgXCJlbWFpbFwiOiBcImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tXCIsXG4gIFwiZW1haWxfdmVyaWZpZWRcIjogdHJ1ZSxcbiAgXCJsb2NhbGVcIjogXCJlblwiLFxuICBcImhkXCI6IFwibWluaXN0cnlvZnByb2dyYW1taW5nLmNvbVwiXG59IiwiX2pzb24iOnsic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwibmFtZSI6IkZhcmlzIEJla3RhcyIsImdpdmVuX25hbWUiOiJGYXJpcyAiLCJmYW1pbHlfbmFtZSI6IkJla3RhcyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsImVtYWlsIjoiZmFyaXMuYmVrdGFzQG1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibG9jYWxlIjoiZW4iLCJoZCI6Im1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJkb21haW4iOiJtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIn19fX0=; login-session.sig=W_Qc4Waz2MsDK0INF1mn-cbFvKY"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "{{URL}}/notion/sync",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"notion",
+						"sync"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{URL}}/people/ - Clear filter",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "bb.mop.ba"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"95\", \"Chromium\";v=\"95\", \";Not A Brand\";v=\"99\""
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "origin",
+						"value": "https://birthdaybot.mop.ba"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "referer",
+						"value": "https://birthdaybot.mop.ba/"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "user=109578534916975092423; login-session=eyJwYXNzcG9ydCI6eyJ1c2VyIjp7InByb3ZpZGVyIjoiZ29vZ2xlIiwic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwiaWQiOiIxMDk1Nzg1MzQ5MTY5NzUwOTI0MjMiLCJkaXNwbGF5TmFtZSI6IkZhcmlzIEJla3RhcyIsIm5hbWUiOnsiZ2l2ZW5OYW1lIjoiRmFyaXMgIiwiZmFtaWx5TmFtZSI6IkJla3RhcyJ9LCJnaXZlbl9uYW1lIjoiRmFyaXMgIiwiZmFtaWx5X25hbWUiOiJCZWt0YXMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwidmVyaWZpZWQiOnRydWUsImxhbmd1YWdlIjoiZW4iLCJlbWFpbCI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwiZW1haWxzIjpbeyJ2YWx1ZSI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwidHlwZSI6ImFjY291bnQifV0sInBob3RvcyI6W3sidmFsdWUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsInR5cGUiOiJkZWZhdWx0In1dLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY049czk2LWMiLCJfcmF3Ijoie1xuICBcInN1YlwiOiBcIjEwOTU3ODUzNDkxNjk3NTA5MjQyM1wiLFxuICBcIm5hbWVcIjogXCJGYXJpcyBCZWt0YXNcIixcbiAgXCJnaXZlbl9uYW1lXCI6IFwiRmFyaXMgXCIsXG4gIFwiZmFtaWx5X25hbWVcIjogXCJCZWt0YXNcIixcbiAgXCJwaWN0dXJlXCI6IFwiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY05cXHUwMDNkczk2LWNcIixcbiAgXCJlbWFpbFwiOiBcImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tXCIsXG4gIFwiZW1haWxfdmVyaWZpZWRcIjogdHJ1ZSxcbiAgXCJsb2NhbGVcIjogXCJlblwiLFxuICBcImhkXCI6IFwibWluaXN0cnlvZnByb2dyYW1taW5nLmNvbVwiXG59IiwiX2pzb24iOnsic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwibmFtZSI6IkZhcmlzIEJla3RhcyIsImdpdmVuX25hbWUiOiJGYXJpcyAiLCJmYW1pbHlfbmFtZSI6IkJla3RhcyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsImVtYWlsIjoiZmFyaXMuYmVrdGFzQG1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibG9jYWxlIjoiZW4iLCJoZCI6Im1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJkb21haW4iOiJtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIn19fX0=; login-session.sig=W_Qc4Waz2MsDK0INF1mn-cbFvKY"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"searchString\":\"\",\"filter\":{}}"
+				},
+				"url": {
+					"raw": "{{URL}}/people/searchfilter?limit=15&offset=0",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"people",
+						"searchfilter"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "15"
+						},
+						{
+							"key": "offset",
+							"value": "0"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{URL}}/people/ - Month July",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"",
+							"responseJson = JSON.parse(responseBody);",
+							"  var d=[];",
+							"var list = (responseJson.data).length;",
+							"console.log(list);",
+							"   for (var i = 0; i < list; i++) ",
+							"    {",
+							"    var counter = responseJson.data[i];",
+							"    ID=counter.birthday",
+							"",
+							"    d.push(ID)",
+							"    }",
+							"    d= JSON.stringify(d)",
+							"    postman.setEnvironmentVariable(\"birthdayID\", d);",
+							"",
+							"    pm.test(\"Users that have birthday on July\", () => {",
+							"pm.expect(d).to.contain(\"07\");",
+							"console.log(d);",
+							"});",
+							"",
+							"const type = response.data[0].type;",
+							"",
+							"pm.test(\"Type is emplpyee\", () => {",
+							"    pm.expect(type).to.be.eql(\"employee\");",
+							"})",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "bb.mop.ba"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"95\", \"Chromium\";v=\"95\", \";Not A Brand\";v=\"99\""
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "origin",
+						"value": "https://birthdaybot.mop.ba"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "referer",
+						"value": "https://birthdaybot.mop.ba/"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "user=109578534916975092423; login-session=eyJwYXNzcG9ydCI6eyJ1c2VyIjp7InByb3ZpZGVyIjoiZ29vZ2xlIiwic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwiaWQiOiIxMDk1Nzg1MzQ5MTY5NzUwOTI0MjMiLCJkaXNwbGF5TmFtZSI6IkZhcmlzIEJla3RhcyIsIm5hbWUiOnsiZ2l2ZW5OYW1lIjoiRmFyaXMgIiwiZmFtaWx5TmFtZSI6IkJla3RhcyJ9LCJnaXZlbl9uYW1lIjoiRmFyaXMgIiwiZmFtaWx5X25hbWUiOiJCZWt0YXMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwidmVyaWZpZWQiOnRydWUsImxhbmd1YWdlIjoiZW4iLCJlbWFpbCI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwiZW1haWxzIjpbeyJ2YWx1ZSI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwidHlwZSI6ImFjY291bnQifV0sInBob3RvcyI6W3sidmFsdWUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsInR5cGUiOiJkZWZhdWx0In1dLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY049czk2LWMiLCJfcmF3Ijoie1xuICBcInN1YlwiOiBcIjEwOTU3ODUzNDkxNjk3NTA5MjQyM1wiLFxuICBcIm5hbWVcIjogXCJGYXJpcyBCZWt0YXNcIixcbiAgXCJnaXZlbl9uYW1lXCI6IFwiRmFyaXMgXCIsXG4gIFwiZmFtaWx5X25hbWVcIjogXCJCZWt0YXNcIixcbiAgXCJwaWN0dXJlXCI6IFwiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY05cXHUwMDNkczk2LWNcIixcbiAgXCJlbWFpbFwiOiBcImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tXCIsXG4gIFwiZW1haWxfdmVyaWZpZWRcIjogdHJ1ZSxcbiAgXCJsb2NhbGVcIjogXCJlblwiLFxuICBcImhkXCI6IFwibWluaXN0cnlvZnByb2dyYW1taW5nLmNvbVwiXG59IiwiX2pzb24iOnsic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwibmFtZSI6IkZhcmlzIEJla3RhcyIsImdpdmVuX25hbWUiOiJGYXJpcyAiLCJmYW1pbHlfbmFtZSI6IkJla3RhcyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsImVtYWlsIjoiZmFyaXMuYmVrdGFzQG1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibG9jYWxlIjoiZW4iLCJoZCI6Im1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJkb21haW4iOiJtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIn19fX0=; login-session.sig=W_Qc4Waz2MsDK0INF1mn-cbFvKY"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"searchString\":\"\",\"filter\":{\"month\":7}}"
+				},
+				"url": {
+					"raw": "{{URL}}/people/searchfilter?limit=undefined&offset=undefined",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"people",
+						"searchfilter"
+					],
+					"query": [
+						{
+							"key": "limit",
+							"value": "undefined"
+						},
+						{
+							"key": "offset",
+							"value": "undefined"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{URL}}/card/17",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const msg = response.message;",
+							"",
+							"pm.test(\"Message should show wrong ID\", () => {",
+							"    pm.expect(msg).to.contain(\"wrong id\");",
+							"})",
+							"",
+							"const code = response.code;",
+							"",
+							"pm.test(\"Code should return 400 - Bad Request\", () => {",
+							"    pm.expect(code).to.be.eql(400);",
+							"})"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "authority",
+						"value": "bb.mop.ba"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"95\", \"Chromium\";v=\"95\", \";Not A Brand\";v=\"99\""
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "origin",
+						"value": "https://birthdaybot.mop.ba"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "referer",
+						"value": "https://birthdaybot.mop.ba/"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "user=109578534916975092423; login-session=eyJwYXNzcG9ydCI6eyJ1c2VyIjp7InByb3ZpZGVyIjoiZ29vZ2xlIiwic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwiaWQiOiIxMDk1Nzg1MzQ5MTY5NzUwOTI0MjMiLCJkaXNwbGF5TmFtZSI6IkZhcmlzIEJla3RhcyIsIm5hbWUiOnsiZ2l2ZW5OYW1lIjoiRmFyaXMgIiwiZmFtaWx5TmFtZSI6IkJla3RhcyJ9LCJnaXZlbl9uYW1lIjoiRmFyaXMgIiwiZmFtaWx5X25hbWUiOiJCZWt0YXMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwidmVyaWZpZWQiOnRydWUsImxhbmd1YWdlIjoiZW4iLCJlbWFpbCI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwiZW1haWxzIjpbeyJ2YWx1ZSI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwidHlwZSI6ImFjY291bnQifV0sInBob3RvcyI6W3sidmFsdWUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsInR5cGUiOiJkZWZhdWx0In1dLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY049czk2LWMiLCJfcmF3Ijoie1xuICBcInN1YlwiOiBcIjEwOTU3ODUzNDkxNjk3NTA5MjQyM1wiLFxuICBcIm5hbWVcIjogXCJGYXJpcyBCZWt0YXNcIixcbiAgXCJnaXZlbl9uYW1lXCI6IFwiRmFyaXMgXCIsXG4gIFwiZmFtaWx5X25hbWVcIjogXCJCZWt0YXNcIixcbiAgXCJwaWN0dXJlXCI6IFwiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY05cXHUwMDNkczk2LWNcIixcbiAgXCJlbWFpbFwiOiBcImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tXCIsXG4gIFwiZW1haWxfdmVyaWZpZWRcIjogdHJ1ZSxcbiAgXCJsb2NhbGVcIjogXCJlblwiLFxuICBcImhkXCI6IFwibWluaXN0cnlvZnByb2dyYW1taW5nLmNvbVwiXG59IiwiX2pzb24iOnsic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwibmFtZSI6IkZhcmlzIEJla3RhcyIsImdpdmVuX25hbWUiOiJGYXJpcyAiLCJmYW1pbHlfbmFtZSI6IkJla3RhcyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsImVtYWlsIjoiZmFyaXMuYmVrdGFzQG1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibG9jYWxlIjoiZW4iLCJoZCI6Im1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJkb21haW4iOiJtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIn19fX0=; login-session.sig=W_Qc4Waz2MsDK0INF1mn-cbFvKY"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{}"
+				},
+				"url": {
+					"raw": "{{URL}}/card/17",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"card",
+						"17"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "{{URL}}/user/notif?type=employee",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const response = pm.response.json();",
+							"",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"pm.test(\"Response time is less than limit\", function() {",
+							"var limit = 200;",
+							"pm.expect(pm.response.responseTime, \"Response time was longer than \" + limit + \" ms.\").to.be.below(limit);",
+							"console.log(\"Response Time: \" + pm.response.responseTime + \" ms\" + \" / Response Date: \" + pm.response.headers.get(\"Date\"));",
+							"});",
+							"",
+							"const scs = response.success;",
+							"pm.test(\"Success should be true\", () => {",
+							"    pm.expect(scs).to.eql(true);",
+							"})",
+							"",
+							"pm.test(\"Content-Type header is present\", () => {",
+							"  pm.response.to.have.header(\"Content-Type\");",
+							"});",
+							"",
+							"pm.test(\"Content-Type header is application/json\", () => {",
+							"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json; charset=utf-8');",
+							"});",
+							"",
+							"",
+							"pm.test(\"Object is contained\", () => {",
+							"  const expectedObject = {",
+							"    \"success\": true,",
+							"    \"message\": \"success\"",
+							"  };",
+							"  pm.expect(pm.response.json()).to.deep.include(expectedObject);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "authority",
+						"value": "bb.mop.ba"
+					},
+					{
+						"key": "sec-ch-ua",
+						"value": "\"Google Chrome\";v=\"95\", \"Chromium\";v=\"95\", \";Not A Brand\";v=\"99\""
+					},
+					{
+						"key": "accept",
+						"value": "application/json, text/plain, */*"
+					},
+					{
+						"key": "content-type",
+						"value": "application/json"
+					},
+					{
+						"key": "sec-ch-ua-mobile",
+						"value": "?0"
+					},
+					{
+						"key": "user-agent",
+						"value": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.54 Safari/537.36"
+					},
+					{
+						"key": "sec-ch-ua-platform",
+						"value": "\"macOS\""
+					},
+					{
+						"key": "origin",
+						"value": "https://birthdaybot.mop.ba"
+					},
+					{
+						"key": "sec-fetch-site",
+						"value": "same-site"
+					},
+					{
+						"key": "sec-fetch-mode",
+						"value": "cors"
+					},
+					{
+						"key": "sec-fetch-dest",
+						"value": "empty"
+					},
+					{
+						"key": "referer",
+						"value": "https://birthdaybot.mop.ba/"
+					},
+					{
+						"key": "accept-language",
+						"value": "en-GB,en-US;q=0.9,en;q=0.8"
+					},
+					{
+						"key": "cookie",
+						"value": "user=109578534916975092423; login-session=eyJwYXNzcG9ydCI6eyJ1c2VyIjp7InByb3ZpZGVyIjoiZ29vZ2xlIiwic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwiaWQiOiIxMDk1Nzg1MzQ5MTY5NzUwOTI0MjMiLCJkaXNwbGF5TmFtZSI6IkZhcmlzIEJla3RhcyIsIm5hbWUiOnsiZ2l2ZW5OYW1lIjoiRmFyaXMgIiwiZmFtaWx5TmFtZSI6IkJla3RhcyJ9LCJnaXZlbl9uYW1lIjoiRmFyaXMgIiwiZmFtaWx5X25hbWUiOiJCZWt0YXMiLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwidmVyaWZpZWQiOnRydWUsImxhbmd1YWdlIjoiZW4iLCJlbWFpbCI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwiZW1haWxzIjpbeyJ2YWx1ZSI6ImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIiwidHlwZSI6ImFjY291bnQifV0sInBob3RvcyI6W3sidmFsdWUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsInR5cGUiOiJkZWZhdWx0In1dLCJwaWN0dXJlIjoiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY049czk2LWMiLCJfcmF3Ijoie1xuICBcInN1YlwiOiBcIjEwOTU3ODUzNDkxNjk3NTA5MjQyM1wiLFxuICBcIm5hbWVcIjogXCJGYXJpcyBCZWt0YXNcIixcbiAgXCJnaXZlbl9uYW1lXCI6IFwiRmFyaXMgXCIsXG4gIFwiZmFtaWx5X25hbWVcIjogXCJCZWt0YXNcIixcbiAgXCJwaWN0dXJlXCI6IFwiaHR0cHM6Ly9saDMuZ29vZ2xldXNlcmNvbnRlbnQuY29tL2EvQUFUWEFKeFE2dEJGa1FyN0ZOdzdXWDJqb194RFVkTFpuREQzQ1ZtOUdkY05cXHUwMDNkczk2LWNcIixcbiAgXCJlbWFpbFwiOiBcImZhcmlzLmJla3Rhc0BtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tXCIsXG4gIFwiZW1haWxfdmVyaWZpZWRcIjogdHJ1ZSxcbiAgXCJsb2NhbGVcIjogXCJlblwiLFxuICBcImhkXCI6IFwibWluaXN0cnlvZnByb2dyYW1taW5nLmNvbVwiXG59IiwiX2pzb24iOnsic3ViIjoiMTA5NTc4NTM0OTE2OTc1MDkyNDIzIiwibmFtZSI6IkZhcmlzIEJla3RhcyIsImdpdmVuX25hbWUiOiJGYXJpcyAiLCJmYW1pbHlfbmFtZSI6IkJla3RhcyIsInBpY3R1cmUiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vYS9BQVRYQUp4UTZ0QkZrUXI3Rk53N1dYMmpvX3hEVWRMWm5ERDNDVm05R2RjTj1zOTYtYyIsImVtYWlsIjoiZmFyaXMuYmVrdGFzQG1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwibG9jYWxlIjoiZW4iLCJoZCI6Im1pbmlzdHJ5b2Zwcm9ncmFtbWluZy5jb20iLCJkb21haW4iOiJtaW5pc3RyeW9mcHJvZ3JhbW1pbmcuY29tIn19fX0=; login-session.sig=W_Qc4Waz2MsDK0INF1mn-cbFvKY"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"meliha.dejkic@ministryofprogramming.com\",\"value\":false}"
+				},
+				"url": {
+					"raw": "{{URL}}/user/notif?type=employee",
+					"host": [
+						"{{URL}}"
+					],
+					"path": [
+						"user",
+						"notif"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "employee"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
